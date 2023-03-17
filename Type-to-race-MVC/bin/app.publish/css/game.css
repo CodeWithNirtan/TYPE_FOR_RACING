@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap');
+    
+   
+    
+    .heading {
+        font-weight: bold;
+        font-family: 'Bree Serif', serif;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    
+
+    
+    .cpm, .wpm {
+    display: none;
+    }
+    
+    /* .header_text {
+    text-transform: uppercase;
+    font-size: 12px;
+    display: flex;
+    font-weight: 600;
+    justify-content: center;
+    }
+     */
+    .curr_time, .curr_errors,
+    .curr_accuracy, .curr_cpm,
+    .curr_wpm {
+    font-size: 20px;
+    }
+.header_text {
+    font-size:21px;
+}
+    
+    .quote {
+    background-color: #ffffff;
+    font-size: 1.5rem;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    text-align: center;
+    }
+    
+    /* .input_area {
+    background-color: #ffffff;
+    height: 80px;
+    width: 79%;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 15px;
+    padding: 20px;
+    border: 0px;
+    box-shadow: black 5px 8px 5px;
+    box-shadow: rgb(17 17 26 / 10%) 0px 4px 16px, rgb(17 17 26 / 5%) 0px 8px 32px;
+    z-index: 9999999;
+    } */
+    
+    .restart_btn {
+    display: none;
+    }
+    
+    .incorrect_char {
+    color: red;
+    text-decoration: underline;
+    }
+    
+    .correct_char {
+    color: darkgreen;
+    }
+
+
+.track {
+    height: 300px;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    position: relative;
+    max-width: 800px;
+    background-image: url('../images/track3.jpg');
+    width: 100%;
+}
+    .car{
+        background-image: url(../images/bluecar.png);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        width: 19%;
+        position: absolute;
+        height: 37%;
+        top: 32%
+    }
+    .finishing_line{
+        width: 8%;
+        height: 100%;
+        background-color: blue;
+        margin-left: auto;
+    }
+
+.startbtn {
+    background: #0b0c2a;
+    color: white;
+    border-radius: 30px;
+    font-size: 20px;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+    .startbtn:hover {
+        transform:translateY(-8px);
+        color:white;
+    }
+    .restart_btn {
+    background: #0b0c2a;
+    color: white;
+    border-radius: 30px;
+    font-size: 20px;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+    .restart_btn:hover {
+        transform:translateY(-8px);
+        color:white;
+    }
+
+.modal-header {
+    background:#0b0c2a;
+}
+.modal-title {
+color:white;
+text-transform:uppercase;
+font-weight:600;
+}
+
+.modal-footer .btn {
+    background: #0b0c2a;
+    color:white;
+    width:200px;
+    padding-top:7px;
+    padding-bottom:7px;
+    transition: 0.4s;
+}
+    .modal-footer .btn:hover {
+        opacity:0.9;
+    }
+
+
+
+.radiolabel {
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: bolder;
+    color: white;
+    box-sizing: border-box;
+    background: #0b0c2a;
+    width: 436px;
+    align-items: center;
+    display: flex;
+    padding: 10px;
+    border-radius: 10px;
+    justify-content: center
+}
+.radio {
+    margin-left:20px
+}

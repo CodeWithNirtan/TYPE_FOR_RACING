@@ -1,0 +1,163 @@
+﻿
+@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Anime Template">
+    <meta name="keywords" content="Anime, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>@ViewBag.Title</title>
+    
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="~/css/plyr.css" type="text/css">
+    <link rel="stylesheet" href="~/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/style.css" type="text/css">
+    
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="header__logo">
+                        <a href="./index.html">
+                            <img src="~/img/logo.png" alt="">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="header__nav">
+               
+                        <nav class="header__menu mobile-menu">
+                            <ul>
+                                <li class="home"><a href="@Url.Action("index","home")">Home</a></li>
+                                <li class="singleplayer"><a href="@Url.Action("PlayGame","Home")">Single Player</a></li>
+                                <li class="tutorial"><a href="@Url.Action("Tutorials","Home")">Tutorials</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                    <div class="header__right">
+                        <a  href="@Url.Action("Register", "Account")">Sign Up</a>
+                        <a  href="@Url.Action("Login", "Account")">Login<span class="icon_profile"></span></a>
+                    </div>
+                    }
+                    else
+                    {
+                            using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                            {
+                            @Html.AntiForgeryToken()
+                        <div class="header__right">
+                            <a href="javascript:document.getElementById('logoutForm').submit()">Sign out</a>
+                        </div>
+
+                            }
+                    }
+            </div>
+            <div id="mobile-menu-wrap"></div>
+        </div>
+    </header>
+    <!-- Header End -->
+@RenderBody()
+
+    <!-- Footer Section Begin -->
+    <footer class="footer">
+        <div class="page-up">
+            <a href="#" id="scrollToTopButton"><span class="arrow_carrot-up"></span></a>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="footer__logo">
+                        <a href="./index.html"><img src="~/img/logo.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="footer__nav">
+                        <ul>
+                            <li class="active"><a href="@Url.Action("index","home")">Homepage</a></li>
+                            <li><a href="@Url.Action("PlayGame","Home")">Single Player</a></li>
+                            <li><a href="@Url.Action("Tutorials","Home")">Tutorials</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <p>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Copyright &copy;
+                        <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is Design By <i class="fa fa-heart" aria-hidden="true"></i> by <a href="mail:nirten2008f@aptechgdn.net" target="_blank">Nirtan Baria</a>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+    <!-- Search model Begin -->
+    <div class="search-model">
+        <div class="h-100 d-flex align-items-center justify-content-center">
+            <div class="search-close-switch"><i class="icon_close"></i></div>
+            <form class="search-model-form">
+                <input type="text" id="search-input" placeholder="Search here.....">
+            </form>
+        </div>
+    </div>
+    <!-- Search model end -->
+    <!-- Js Plugins -->
+    <script src="~/js/jquery-3.3.1.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/jquery.nice-select.min.js"></script>
+    <script src="~/js/mixitup.min.js"></script>
+    <script src="~/js/jquery.slicknav.js"></script>
+    <script src="~/js/owl.carousel.min.js"></script>
+    <script src="~/js/main.js"></script>
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+
+    <script>
+                            if (window.location.href == "http://localhost:50197/Home/PlayGame") {
+                                $(".singleplayer").addClass("active");
+                            }
+                            else if (window.location.href == "http://localhost:50197/") {
+                                $(".home").addClass("active");
+
+                            }
+                            else if (window.location.href == "http://localhost:50197/Home/Tutorials") {
+                                $(".tutorial").addClass("active");
+                            }
+                            else if (window.location.href == "http://localhost:50197/Account/Login?ReturnUrl=%2F") {
+                                $(".login").addClass("active");
+                            }
+                            else {
+                                $(".register").addClass("active");
+
+                            }
+
+                     
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TypetoRaceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Player_score">
+    <Key>
+      <PropertyRef Name="Score_id" />
+    </Key>
+    <Property Name="Score_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="wpm" Type="int" Nullable="false" />
+    <Property Name="cpm" Type="int" Nullable="false" />
+    <Property Name="timeelapsed" Type="int" Nullable="false" />
+    <Property Name="Aquracy" Type="int" Nullable="false" />
+    <Property Name="PlayerId" Type="int" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" />
+  </EntityType>
+  <EntityType Name="players">
+    <Key>
+      <PropertyRef Name="PlayerId" />
+    </Key>
+    <Property Name="PlayerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Player_name" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Player_email" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Player_password" Type="char" MaxLength="13" Nullable="false" />
+    <Property Name="C_Status" Type="bit" />
+    <Property Name="Player_role" Type="int" />
+    <Property Name="ImageUrl" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <Association Name="FK__Player_sc__Playe__05D8E0BE">
+    <End Role="players" Type="Self.players" Multiplicity="1" />
+    <End Role="Player_score" Type="Self.Player_score" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="players">
+        <PropertyRef Name="PlayerId" />
+      </Principal>
+      <Dependent Role="Player_score">
+        <PropertyRef Name="PlayerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="myhighscore" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Top_3" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Top#3" />
+  <EntityContainer Name="TypetoRaceModelStoreContainer">
+    <EntitySet Name="Player_score" EntityType="Self.Player_score" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="players" EntityType="Self.players" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Player_sc__Playe__05D8E0BE" Association="Self.FK__Player_sc__Playe__05D8E0BE">
+      <End Role="players" EntitySet="players" />
+      <End Role="Player_score" EntitySet="Player_score" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

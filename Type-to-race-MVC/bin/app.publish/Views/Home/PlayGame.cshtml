@@ -1,0 +1,393 @@
+﻿@model Type_to_race_MVC.Models.player
+
+
+@{
+    ViewBag.Title = "PlayGame";
+}
+
+@{
+
+    Type_to_race_MVC.Models.TypetoRaceEntities db = new Type_to_race_MVC.Models.TypetoRaceEntities();
+    var score = db.myhighscore(Model.PlayerId).FirstOrDefault();
+}
+@*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
+<link rel="stylesheet" href="~/css/game.css" />
+<link rel="stylesheet" href="~/css/checkbox.css" />
+@*<link href="~/css/bootstrap.css" rel="stylesheet" />*@
+<!-- Anime Section Begin -->
+
+<section class="anime-details spad">
+    <div class="container">
+        <div class="anime__details__content">
+            <div class="row">
+                <div class="col-lg-3">
+                    @*<div class="anime__details__pic set-bg" style="background-size: 100% 100%;background-image:url(~/img/@Model.ImageUrl)">
+                        <div class="comment"><i class="fa fa-comments"></i> 11</div>
+                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
+                    </div>*@
+                    <img src="../img/@Model.ImageUrl" alt="Profile Picture" class="rounded rounded-3" height="300px" />
+                </div>
+                <div class="col-lg-9">
+                    <div class="anime__details__text">
+                        <div class="anime__details__title">
+                            <h3>Type To Speed Single Player Mode</h3>
+                            <span>Learn with Fun</span>
+                        </div>
+                        @*<div class="anime__details__rating">
+                            <div class="rating">
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star-half-o"></i></a>
+                            </div>
+                            <span>1.029 Votes</span>
+                        </div>*@
+                        <p>
+                            This is not just a ordinary typing game. It is a game. By playing this game we can improved typing skills and you can also improve your typing speed by playing type to speed game again and again.
+                        </p>
+                        <input type="hidden" value="@Model.PlayerId" id="id"  />
+                        <div class="anime__details__widget">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <ul>
+                                        <li><span>Player Name:</span>@Model.Player_name</li>
+                                        @if (score != null)
+                                        {
+                                        <li><span>WPM</span>@score.wpm</li>
+                                        
+                                            var total_duration = 180 - score.timeelapsed;
+                                   
+                                        <li><span>Duration:</span> @total_duration / 180 S</li>
+                                        <li><span>CPM:</span>@score.cpm</li>
+                                        <li><span>ACCURACY:</span>@score.Aquracy %</li>
+                                            }
+                                         else {
+                                        <li><span>Duration:</span> N/A</li>
+                                        <li><span>CPM:</span>N/A</li>
+                                        <li><span>ACCURACY:</span>N/A</li>
+                                        <li><span>Status</span><span class="text-success">Online</span></li>
+                                            }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="anime__details__btn">
+                            <a href="#game" class="follow-btn"><i class="fa fa-play"></i> Play</a>
+                            <a href="#PlayerHistroy" class="follow-btn bg-success"><i class="fa fa-play"></i>PLAYER HISTORY</a>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+    <div class="container mb-5 p-3 shadow" id="game" style="border-radius:20px; background:#e53637;">
+        
+        <div class="d-flex justify-content-start align-items-center mb-3">
+            @*<div class="wpm mr-2 px-2 text-white border border-3">
+                <div class="header_text mb-0">WPM</div>
+                <div class="curr_wpm">100</div>
+            </div>
+            <div class="cpm mr-2 px-2 text-white border border-3">
+                <div class="header_text mb-0">CPM</div>
+                <div class="curr_cpm">100</div>
+            </div>*@
+            <div class="errors mr-2 px-2 text-white border border-3">
+                <div class="header_text mb-0">Errors</div>
+                <div class="curr_errors">0</div>
+            </div>
+            <div class="timer px-2 text-white border border-3">
+                <div class="header_text mb-0">Time</div>
+                <div class="curr_time">180</div>
+            </div>
+            <div class="accuracy ml-2 px-2 text-white border border-3">
+                <div class="header_text mb-0">Accuracy %</div>
+                <div class="curr_accuracy">100</div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="track  mx-auto rounded">
+                <div class="car"></div>
+                
+            </div>
+        </div>
+        <div class="quote mt-5 w-75 p-3 ps-4 rounded-pill mx-auto Res_heading">
+            Click on the area below to start the game.
+        </div>
+        <textarea  autofocus="" oninput="processCurrentText()" 
+                  class="input_area form-control w-75 mt-4 rounded-pill p-3 ps-4 mx-auto"
+                  placeholder="start typing here..."
+                  ></textarea>
+        <div class="d-grid col-6 my-4 mx-auto">
+            <button onclick="selectCar()" class="btn startbtn text-uppercase w-100 font-weight-bold p-3">start Game</button>
+        </div>
+  
+      
+
+
+
+    </div>
+
+@*Choose Car Modal*@
+
+    <div class="modal fade" id="ChooseCar" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Choose your Car and difficulty level</h5>
+                    <button type="button" class="close text-white-50" onclick="$('#ChooseCar').modal('hide')">&times;</button>
+                </div>
+                <div class="modal-body">
+
+                    <p class="text-danger" id="car_error" style="display:none">Please Car to Play the Game</p>
+                    <div class="col-md-12 res_role">
+                        <div class="col-md-4 res_teacher">
+                            <input type="radio" name="Cars" class="radio" value="0" id="myRadio1" />
+                            <label for="myRadio1">
+                                <div class="col-12 mt-2 mx-auto Role_div text-center shadow p-3 mb-2 bg-white">
+                                    <img src="~/images/blackcar.png" height="80" width="80" alt="Teacher" />
+                                    <div class="text-center mt-1 role_heading">
+                                        <h5>Speed Car</h5>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="col-md-4 res_student">
+                            <input type="radio" name="Cars" class="radio" value="1" id="myRadio2" />
+
+                            <label for="myRadio2">
+                                <div class="col-12 mt-2 mx-auto Role_div text-center shadow p-3 mb-2 bg-white ">
+                                    <img src="~/images/bluecar.png" height="80px" width="80px" alt="Student" />
+                                    <div class="text-center mt-1 role_heading">
+                                        <h5>Mercedes</h5>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="col-md-4 res_parents">
+                            <input type="radio" name="Cars" class="radio" value="2" id="myRadio3" />
+
+                            <label for="myRadio3">
+                                <div class="col-12 mt-2 mx-auto Role_div text-center shadow p-3 mb-2 bg-white ">
+                                    <img src="~/images/YellowCar.png" alt="Parents" />
+                                    <div class="text-center mt-1 role_heading">
+                                        <h5>Farrari</h5>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                        </div>
+                        <div class="col-md-4 m-auto">
+                                <div class="input-group" style="position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    -ms-flex-align: stretch;
+    flex-wrap:nowrap;
+    width: 100%;
+    align-items: center;
+    flex-direction: column-reverse;
+    margin-block: 10px;">
+                                    <label class="radiolabel">
+                                    Hard
+
+                                    <input type="radio" id="hard" class="radio" value="hard" name="difficulty" />
+                                    </label>
+                                    <label class="radiolabel">Easy
+                                    <input type="radio" id="Easy" class="radio" value="Easy" name="difficulty" />
+                                    </label>
+                                </div>
+
+                                </div>
+                        <script src="~/Scripts/bootstrap.min.js"></script>
+                        @*<div class="row">
+                <label><input type="radio" name="cars" value="0">car 1</label>
+                <label><input type="radio" name="cars" value="1">car 2</label>
+                <label><input type="radio" name="cars" value="2">car 3</label>
+            </div>*@
+                    </div>
+                <div class="modal-footer pb-0">
+                    <button type="button"  class="btn">Select Car</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+@*Choose Car Modal*@
+
+    @*Win Modal*@
+
+    <div class="modal fade" id="Winner" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                    <button type="button" class="close ml-auto h3 p-3" onclick="resetValues()" aria-label="Close">&times;</button>
+                <div class="modal-body text-center">
+                    <div class="mb-4">
+                        <img src="~/images/trophy.png" class="mb-4" width="150" height="150" alt="Winner"/>
+                        <h4 class="Res_heading">Congratulations</h4>
+                        <h2 class="Res_heading">You Won</h2>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center mb-3">
+                        <div class="wpm mr-2 px-2 text-white bg-secondary rounded rounded-3">
+                            <div class="header_text mb-0 text-white">WPM</div>
+                            <div class="curr_wpm">100</div>
+                        </div>
+                        <div class="cpm mr-2 px-2 text-white bg-secondary rounded rounded-3">
+                            <div class="header_text mb-0">CPM</div>
+                            <div class="curr_cpm">100</div>
+                        </div>
+                        <div class="errors mr-2 px-2 text-white bg-secondary rounded rounded-3">
+                            <div class="header_text mb-0">Errors</div>
+                            <div class="curr_errors">0</div>
+                        </div>
+                        <div class="timer px-2 text-white bg-secondary rounded rounded-3">
+                            <div class="header_text mb-0">Time</div>
+                            <div class="curr_time">180</div>
+                        </div>
+                        <div class="accuracy ml-2 px-2 text-white bg-secondary rounded rounded-3">
+                            <div class="header_text mb-0">Accuracy %</div>
+                            <div class="curr_accuracy">100</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="d-grid col-6 my-4 mx-auto">
+                        <button onclick="selectCar()" class="btn startbtn text-uppercase w-100 font-weight-bold p-3">Play Again</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*Win Modal*@
+
+    @*Loser Modal*@
+
+    <div class="modal fade" id="Loser" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <button type="button" class="close ml-auto h3 p-3" onclick="resetValues()" aria-label="Close">&times;</button>
+                <div class="modal-body text-center">
+                    <div class="mb-4">
+                        <img src="~/images/loser.png" class="mb-4" width="150" height="150" alt="Loser" />
+                        <h4 class="Res_heading">Game Over</h4>
+                        <h2 class="Res_heading">You Lose</h2>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center mb-3">
+                        <div class="wpm mr-2 px-2 text-white bg-secondary rounded rounded-3">
+                            <div class="header_text mb-0 text-white">WPM</div>
+                            <div class="curr_wpm">100</div>
+                        </div>
+                        <div class="cpm mr-2 px-2 text-white bg-secondary rounded rounded-3">
+                            <div class="header_text mb-0">CPM</div>
+                            <div class="curr_cpm">100</div>
+                        </div>
+                        <div class="errors mr-2 px-2 text-white bg-secondary rounded rounded-3">
+                            <div class="header_text mb-0">Errors</div>
+                            <div class="curr_errors">0</div>
+                        </div>
+                        <div class="timer px-2 text-white bg-secondary rounded rounded-3">
+                            <div class="header_text mb-0">Time</div>
+                            <div class="curr_time">0s</div>
+                        </div>
+                        <div class="accuracy ml-2 px-2 text-white bg-secondary rounded rounded-3">
+                            <div class="header_text mb-0">Accuracy %</div>
+                            <div class="curr_accuracy">100</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="d-grid col-6 my-4 mx-auto">
+                        <button onclick="startGame()" style="display: none;" class="btn restart_btn text-uppercase w-100 font-weight-bold p-3">Restart Game</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*Loser Modal*@
+
+
+  
+    <div class="container">
+
+    <div class="row" id="PlayerHistroy">
+        <div class="col-lg-8 col-md-8">
+            <div class="anime__details__review">
+                <div class="section-title">
+                    <h5>Player History</h5>
+                </div>
+                @if (Model.Player_score.Count != 0) {
+                    foreach (var scores in (from range in Model.Player_score orderby range.DateCreated descending select range).Take(5).ToList())
+                    {
+
+                <div class="anime__review__item">
+                    <div class="anime__review__item__pic">
+                        <img src="~/img/@Model.ImageUrl" alt="">
+                    </div>
+                    <div class="anime__review__item__text">
+                        <h6>@Model.Player_name <span>@scores.DateCreated</span></h6>
+                       <table class="border table table-striped text-light">
+                           <thead>
+                               <tr>
+
+                               <th>Wpm</th>
+                               <th>CPM</th>
+                               <th>Accuracy</th>
+                               <th>Time Elapsed</th>
+                               </tr>
+                           </thead>
+                           <tbody>
+                               <tr>
+                                   <td>@scores.wpm</td>
+                                   <td>@scores.cpm</td>
+                                   <td>@scores.Aquracy %</td>
+                                   <td>@scores.timeelapsed</td>
+                               </tr>
+                           </tbody>
+                       </table>
+                    </div>
+                </div>
+                }
+               
+                }
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4">
+            <div class="anime__details__sidebar">
+                <div class="section-title">
+                    <h5>you might like...</h5>
+                </div>
+                <div class="product__sidebar__view__item set-bg" data-setbg="/img/editopizza.PNG">
+                    <div class="view"><i class="fa fa-eye"></i> Edito Pizza</div>
+                    <h5><a href="#">Quick Customize Your Pizza</a></h5>
+                </div>
+                <div class="product__sidebar__view__item set-bg" data-setbg="/img/editoaboutus.PNG">
+                    <div class="view"><i class="fa fa-eye"></i> Edito Pizza</div>
+                    <h5><a href="#">This is our about Us Page</a></h5>
+                </div>
+                <div class="product__sidebar__view__item set-bg" data-setbg="/img/digitalinsurnce.PNG">
+                    <div class="view"><i class="fa fa-eye"></i> Digital Insurance Company</div>
+                    <h5><a href="#">Digital Insurace Comapany website</a></h5>
+                </div>
+                <div class="product__sidebar__view__item set-bg" data-setbg="/img/fitness.PNG">
+                    <div class="view"><i class="fa fa-eye"></i>Fitness Web App</div>
+                    <h5><a href="#">Make your day healty with our fitness Videos</a></h5>
+                </div>
+     </div>
+        </div>
+    </div>
+    </div>
+</section>
+<!-- Anime Section End -->
+
+<script src="~/Scripts/jquery-3.6.0.js"></script>
+<script src="~/js/game.js"></script>

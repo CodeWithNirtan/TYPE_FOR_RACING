@@ -1,0 +1,120 @@
+﻿:root{
+    --white: #fff;
+    --primary: #1268ad ;
+    --secondary: #3ca7fc;
+    --black: #262626;
+    --gray: #999999;
+}
+
+    /*  Radio Buttons */
+
+    .Role_div img {
+    width: 70%;
+    height: 80px;
+}
+
+.Role_div {
+    width: 150px;
+    height: 150px;
+    border-radius: 20px;
+}
+input[type="radio"][id^="myRadio"] {
+    display: none;
+}
+
+label .Role_div {
+    display: block;
+    position: relative;
+    cursor: pointer;
+}
+
+    label .Role_div:before {
+        background-color:#e53637;
+        color: white;
+        content: " ";
+        display: block;
+        border-radius: 50%;
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        width: 25px;
+        height: 25px;
+        text-align: center;
+        line-height: 28px;
+        transition-duration: 0.4s;
+        transform: scale(0);
+    }
+
+:checked + label .Role_div {
+    border: solid 2px #e53637;
+}
+
+    :checked + label .Role_div:before {
+        content: "✓";
+        background-color: #e53637;
+        transform: scale(1);
+    }
+
+label .Role_div img {
+    transition-duration: 0.4s;
+}
+
+:checked + label .Role_div img {
+    transform: scale(0.9);
+    /* box-shadow: 0 0 5px #333; */
+    z-index: -1;
+}
+
+.Res_heading {
+    text-transform: uppercase;
+    font-weight: 900;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #0b0c2a;
+}
+    
+   .res_role {
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+@media screen and (max-width:500px) {
+    .Role_div {
+        width: 120px;
+        height: 120px;
+    }
+
+        .Role_div img {
+            width: 65%;
+            height: 60px;
+        }
+
+        .Role_div h5 {
+            font-size: 16px !important;
+            font-weight: bold;
+        }
+}
+
+@media screen and (max-width:400px) {
+    .res_role {
+        display: block;
+    }
+
+    .Role_div {
+        width: 250px;
+        height: 50px;
+    }
+
+        .Role_div img {
+            display: none;
+        }
+
+        .Role_div h5 {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .Role_div .role_heading {
+            margin: 0 !important;
+        }
+}
+

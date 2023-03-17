@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TypetoRaceModelStoreContainer" CdmEntityContainer="TypetoRaceEntities">
+    <EntitySetMapping Name="Player_score">
+      <EntityTypeMapping TypeName="TypetoRaceModel.Player_score">
+        <MappingFragment StoreEntitySet="Player_score">
+          <ScalarProperty Name="Score_id" ColumnName="Score_id" />
+          <ScalarProperty Name="wpm" ColumnName="wpm" />
+          <ScalarProperty Name="cpm" ColumnName="cpm" />
+          <ScalarProperty Name="timeelapsed" ColumnName="timeelapsed" />
+          <ScalarProperty Name="Aquracy" ColumnName="Aquracy" />
+          <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="players">
+      <EntityTypeMapping TypeName="TypetoRaceModel.player">
+        <MappingFragment StoreEntitySet="players">
+          <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+          <ScalarProperty Name="Player_name" ColumnName="Player_name" />
+          <ScalarProperty Name="Player_email" ColumnName="Player_email" />
+          <ScalarProperty Name="Player_password" ColumnName="Player_password" />
+          <ScalarProperty Name="C_Status" ColumnName="C_Status" />
+          <ScalarProperty Name="Player_role" ColumnName="Player_role" />
+          <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="myhighscore" FunctionName="TypetoRaceModel.Store.myhighscore">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TypetoRaceModel.myhighscore_Result">
+          <ScalarProperty Name="Score_id" ColumnName="Score_id" />
+          <ScalarProperty Name="wpm" ColumnName="wpm" />
+          <ScalarProperty Name="cpm" ColumnName="cpm" />
+          <ScalarProperty Name="timeelapsed" ColumnName="timeelapsed" />
+          <ScalarProperty Name="Aquracy" ColumnName="Aquracy" />
+          <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Top_3" FunctionName="TypetoRaceModel.Store.Top_3">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TypetoRaceModel.Top_3_Result">
+          <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+          <ScalarProperty Name="Player_name" ColumnName="Player_name" />
+          <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+          <ScalarProperty Name="wpm" ColumnName="wpm" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,215 @@
+﻿@model IEnumerable<Type_to_race_MVC.Models.Top_3>
+
+
+
+@{ 
+    Type_to_race_MVC.Models.TypetoRaceEntities db = new Type_to_race_MVC.Models.TypetoRaceEntities();
+    Type_to_race_MVC.Models.player playerdetails = null;
+    Type_to_race_MVC.Models.Top_3 score = null;
+    if (ViewBag.Playerid != null)
+    {
+        score = ViewBag.Playerid;
+        playerdetails = db.players.Where(x => x.PlayerId == score.PlayerId).FirstOrDefault();
+    }
+
+}
+@{
+    ViewBag.Title = "Home Page";
+}
+
+    <!-- Hero Section Begin -->
+<section class="hero">
+    <div class="container">
+        <div class="hero__slider owl-carousel">
+            <div class="hero__items set-bg" data-setbg="img/typing-race.png">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="hero__text">
+                            <div class="label">Type to Race</div>
+                            <h2>Create Your Own High Score</h2>
+                            <a href="@Url.Action("PlayGame","Home")"><span>Play Now</span> <i class="fa fa-angle-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero__items set-bg" data-setbg="img/SinglePlayerPoster.png">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="hero__text">
+                            <div class="label">SinglePlayer Mode</div>
+                            <h2>Play Single And try to maintain high score</h2>
+                            <a href="./SinglePlayerMode.html"><span>Play Now</span> <i class="fa fa-angle-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Hero Section End -->
+@if(playerdetails != null && score != null)
+{
+<div class="container" style="margin-top:100px;margin-bottom:100px">
+    <div class="anime__details__content">
+        <div class="row">
+            <div class="col-lg-3">
+                @*<div class="anime__details__pic set-bg" style="background-size: 100% 100%;background-image:url(~/img/@Model.ImageUrl)">
+                        <div class="comment"><i class="fa fa-comments"></i> 11</div>
+                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
+                    </div>*@
+                <img src="~/img/@playerdetails.ImageUrl" alt="Profile Picture" class="rounded rounded-3" height="300px" />
+            </div>
+            <div class="col-lg-9">
+                <div class="anime__details__text">
+                    <div class="anime__details__title">
+                        <h3>Congrates New Record</h3>
+                        <span>Learn with Fun</span>
+                    </div>
+                    @*<div class="anime__details__rating">
+                            <div class="rating">
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star"></i></a>
+                                <a href="#"><i class="fa fa-star-half-o"></i></a>
+                            </div>
+                            <span>1.029 Votes</span>
+                        </div>*@
+                    <p>
+                        This is not just a ordinary typing game. It is a game. By playing this game we can improved typing skills and you can also improve your typing speed by playing type to speed game again and again.
+                    </p>
+                    <input type="hidden" value="2" id="id" />
+                    <div class="anime__details__widget">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <ul>
+                                    <li><span>WPM</span>@score.wpm</li>
+                                    <li><span>Player Name:</span>@playerdetails.Player_name</li>
+                                    @*@{
+                                        var total_duration = 180 - score.timeelapsed;
+                                    }*@
+                                    <li><span>Status</span><span class="text-success">Online</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="anime__details__btn">
+                        <a href='@Url.Action("PlayGame", "Home")' class="follow-btn"><i class="fa fa-play"></i> Break Record</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+}
+else
+{
+    <div class="container" style="margin-top:100px;margin-bottom:100px">
+        <div class="anime__details__content">
+            <div class="row">
+                <div class="col-lg-3">
+                    @*<div class="anime__details__pic set-bg" style="background-size: 100% 100%;background-image:url(~/img/@Model.ImageUrl)">
+                            <div class="comment"><i class="fa fa-comments"></i> 11</div>
+                            <div class="view"><i class="fa fa-eye"></i> 9141</div>
+                        </div>*@
+                    <img src="~/img/DummyProfile.png" alt="Profile Picture" class="rounded rounded-3" height="300px" />
+                </div>
+                <div class="col-lg-9">
+                    <div class="anime__details__text">
+                        <div class="anime__details__title">
+                            <h3>No High Score Player Yet</h3>
+                            <span>Learn with Fun</span>
+                        </div>
+                        @*<div class="anime__details__rating">
+                                <div class="rating">
+                                    <a href="#"><i class="fa fa-star"></i></a>
+                                    <a href="#"><i class="fa fa-star"></i></a>
+                                    <a href="#"><i class="fa fa-star"></i></a>
+                                    <a href="#"><i class="fa fa-star"></i></a>
+                                    <a href="#"><i class="fa fa-star-half-o"></i></a>
+                                </div>
+                                <span>1.029 Votes</span>
+                            </div>*@
+                        <p>
+                            This is not just a ordinary typing game. It is a game. By playing this game we can improved typing skills and you can also improve your typing speed by playing type to speed game again and again.
+                        </p>
+                        <input type="hidden" value="2" id="id" />
+                        <div class="anime__details__widget">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <ul>
+                                        <li><span>WPM</span>N/A</li>
+                                        <li><span>Player Name:</span>N/A</li>
+                                        @*@{
+                                                var total_duration = 180 - score.timeelapsed;
+                                            }*@
+                                        <li><span>Status</span><span class="text-success">N/A</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="anime__details__btn">
+                            <a href='@Url.Action("PlayGame", "Home")' class="follow-btn"><i class="fa fa-play"></i> Break Record</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+<div class="container" style="margin-bottom:200px">
+
+
+<table class="table border-1 text-light table-active table-bordered">
+    <thead>
+        <tr>
+            <th>Rank</th>
+            <th>Image</th>
+            <th>Player Name</th>
+            <th>Player WPM</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+
+            foreach (var item in Model)
+            {
+
+        <tr>
+            <td>
+               1
+            </td>
+            <td>
+                <img src="~/img/@item.ImageUrl" height="30" width="30" />
+            </td>
+             <td>
+                @item.Player_name
+             </td>
+            <td>
+                @item.wpm
+            </td>
+        </tr>
+            }
+        }
+        else {
+            <div class="alert alert-success">
+               <p class="text-success">Sorry High Scores Yet</p>
+            </div>
+        }
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+
+
+
+
+

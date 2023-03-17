@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TypetoRaceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Player_score">
+          <Key>
+            <PropertyRef Name="Score_id" />
+          </Key>
+          <Property Name="Score_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="wpm" Type="int" Nullable="false" />
+          <Property Name="cpm" Type="int" Nullable="false" />
+          <Property Name="timeelapsed" Type="int" Nullable="false" />
+          <Property Name="Aquracy" Type="int" Nullable="false" />
+          <Property Name="PlayerId" Type="int" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="players">
+          <Key>
+            <PropertyRef Name="PlayerId" />
+          </Key>
+          <Property Name="PlayerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Player_name" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Player_email" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Player_password" Type="char" MaxLength="13" Nullable="false" />
+          <Property Name="C_Status" Type="bit" />
+          <Property Name="Player_role" Type="int" />
+          <Property Name="ImageUrl" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK__Player_sc__Playe__05D8E0BE">
+          <End Role="players" Type="Self.players" Multiplicity="1" />
+          <End Role="Player_score" Type="Self.Player_score" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="players">
+              <PropertyRef Name="PlayerId" />
+            </Principal>
+            <Dependent Role="Player_score">
+              <PropertyRef Name="PlayerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="myhighscore" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Top_3" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Top#3" />
+        <EntityContainer Name="TypetoRaceModelStoreContainer">
+          <EntitySet Name="Player_score" EntityType="Self.Player_score" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="players" EntityType="Self.players" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Player_sc__Playe__05D8E0BE" Association="Self.FK__Player_sc__Playe__05D8E0BE">
+            <End Role="players" EntitySet="players" />
+            <End Role="Player_score" EntitySet="Player_score" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TypetoRaceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Player_score">
+          <Key>
+            <PropertyRef Name="Score_id" />
+          </Key>
+          <Property Name="Score_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="wpm" Type="Int32" Nullable="false" />
+          <Property Name="cpm" Type="Int32" Nullable="false" />
+          <Property Name="timeelapsed" Type="Int32" Nullable="false" />
+          <Property Name="Aquracy" Type="Int32" Nullable="false" />
+          <Property Name="PlayerId" Type="Int32" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="player" Relationship="Self.FK__Player_sc__Playe__05D8E0BE" FromRole="Player_score" ToRole="players" />
+        </EntityType>
+        <EntityType Name="player">
+          <Key>
+            <PropertyRef Name="PlayerId" />
+          </Key>
+          <Property Name="PlayerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Player_name" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Player_email" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Player_password" Type="String" MaxLength="13" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="C_Status" Type="Boolean" />
+          <Property Name="Player_role" Type="Int32" />
+          <Property Name="ImageUrl" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Player_score" Relationship="Self.FK__Player_sc__Playe__05D8E0BE" FromRole="players" ToRole="Player_score" />
+        </EntityType>
+        <Association Name="FK__Player_sc__Playe__05D8E0BE">
+          <End Role="players" Type="Self.player" Multiplicity="1" />
+          <End Role="Player_score" Type="Self.Player_score" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="players">
+              <PropertyRef Name="PlayerId" />
+            </Principal>
+            <Dependent Role="Player_score">
+              <PropertyRef Name="PlayerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TypetoRaceEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Player_score" EntityType="Self.Player_score" />
+          <EntitySet Name="players" EntityType="Self.player" />
+          <AssociationSet Name="FK__Player_sc__Playe__05D8E0BE" Association="Self.FK__Player_sc__Playe__05D8E0BE">
+            <End Role="players" EntitySet="players" />
+            <End Role="Player_score" EntitySet="Player_score" />
+          </AssociationSet>
+          <FunctionImport Name="myhighscore" ReturnType="Collection(TypetoRaceModel.myhighscore_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Top_3" ReturnType="Collection(TypetoRaceModel.Top_3_Result)" />
+        </EntityContainer>
+        <ComplexType Name="myhighscore_Result">
+          <Property Type="Int32" Name="Score_id" Nullable="false" />
+          <Property Type="Int32" Name="wpm" Nullable="false" />
+          <Property Type="Int32" Name="cpm" Nullable="false" />
+          <Property Type="Int32" Name="timeelapsed" Nullable="false" />
+          <Property Type="Int32" Name="Aquracy" Nullable="false" />
+          <Property Type="Int32" Name="PlayerId" Nullable="false" />
+          <Property Type="DateTime" Name="DateCreated" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="Top_3_Result">
+          <Property Type="Int32" Name="PlayerId" Nullable="false" />
+          <Property Type="String" Name="Player_name" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="ImageUrl" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="wpm" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TypetoRaceModelStoreContainer" CdmEntityContainer="TypetoRaceEntities">
+          <EntitySetMapping Name="Player_score">
+            <EntityTypeMapping TypeName="TypetoRaceModel.Player_score">
+              <MappingFragment StoreEntitySet="Player_score">
+                <ScalarProperty Name="Score_id" ColumnName="Score_id" />
+                <ScalarProperty Name="wpm" ColumnName="wpm" />
+                <ScalarProperty Name="cpm" ColumnName="cpm" />
+                <ScalarProperty Name="timeelapsed" ColumnName="timeelapsed" />
+                <ScalarProperty Name="Aquracy" ColumnName="Aquracy" />
+                <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="players">
+            <EntityTypeMapping TypeName="TypetoRaceModel.player">
+              <MappingFragment StoreEntitySet="players">
+                <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+                <ScalarProperty Name="Player_name" ColumnName="Player_name" />
+                <ScalarProperty Name="Player_email" ColumnName="Player_email" />
+                <ScalarProperty Name="Player_password" ColumnName="Player_password" />
+                <ScalarProperty Name="C_Status" ColumnName="C_Status" />
+                <ScalarProperty Name="Player_role" ColumnName="Player_role" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="myhighscore" FunctionName="TypetoRaceModel.Store.myhighscore">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TypetoRaceModel.myhighscore_Result">
+                <ScalarProperty Name="Score_id" ColumnName="Score_id" />
+                <ScalarProperty Name="wpm" ColumnName="wpm" />
+                <ScalarProperty Name="cpm" ColumnName="cpm" />
+                <ScalarProperty Name="timeelapsed" ColumnName="timeelapsed" />
+                <ScalarProperty Name="Aquracy" ColumnName="Aquracy" />
+                <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Top_3" FunctionName="TypetoRaceModel.Store.Top_3">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TypetoRaceModel.Top_3_Result">
+                <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+                <ScalarProperty Name="Player_name" ColumnName="Player_name" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="wpm" ColumnName="wpm" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
