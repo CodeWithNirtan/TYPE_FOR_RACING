@@ -57,7 +57,7 @@ namespace Type_to_race_MVC.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Your contact us page.";
 
             return View();
         }
